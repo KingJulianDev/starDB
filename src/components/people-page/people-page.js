@@ -44,8 +44,4 @@ export default class PeoplePage extends Component {
         </div>
         )
     }
-
-
-
-
 }

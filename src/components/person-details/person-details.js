@@ -11,7 +11,8 @@ export default class PersonDetails extends Component {
 
   state={
     person: null, 
-    loading: true
+    loading: true,
+    showPersonDetails: false
   }
 
   componentDidMount() {
@@ -34,18 +35,26 @@ export default class PersonDetails extends Component {
     .then((person) => {
       this.setState({
         person,
-        loading: false
+        loading: false, 
+        showPersonDetails: true
       })
+    })
+  }
+
+  onHideDetails = () => {
+    this.setState({
+      showPersonDetails: false
     })
   }
 
   render() {
     const {loading, person} = this.state; 
-    const hasData = !(loading) ;
     const isLoading = loading ? <Spinner /> : null ;
+    const hasData = !(loading) ;
     const isReady = hasData ? <PersonView person={person} />  : null ;
 
-    if(!this.state.person){
+
+    if(!this.state.person || !this.state.showPersonDetails){
       return(
         <span>Select a person to see details</span>
       )
@@ -55,6 +64,12 @@ export default class PersonDetails extends Component {
       <div>
         {isLoading}
         {isReady}
+        <button 
+          onClick={this.onHideDetails}
+          className='toggle-planet btn btn-success btn-lg'>
+            Hide person details
+        </button>
+        
         <ErrorButton />
       </div>
     )
