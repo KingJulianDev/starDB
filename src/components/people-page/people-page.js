@@ -25,6 +25,12 @@ export default class PeoplePage extends Component {
         )
     }
 
+    resetSelectedPerson = () => {
+        this.setState({
+            selectedPerson: null
+        })
+    }
+
     render(){
         if(this.state.hasError){
             return <ErrorIndicator />
@@ -38,7 +44,8 @@ export default class PeoplePage extends Component {
             </div>
 
             <div className="col-md-6">
-                <PersonDetails personId={this.state.selectedPerson}/>
+                <PersonDetails personId={this.state.selectedPerson}
+                resetPerson={this.resetSelectedPerson}/>
             </div>
 
         </div>

@@ -65,7 +65,7 @@ export default class PersonDetails extends Component {
         {isLoading}
         {isReady}
         <button 
-          onClick={this.onHideDetails}
+          onClick={()=> { this.onHideDetails(); this.props.resetPerson() ; } }
           className='toggle-planet btn btn-success btn-lg'>
             Hide person details
         </button>
