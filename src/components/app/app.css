@@ -1,4 +1,4 @@
-.button-row {
+  .button-row {
     margin: 0 0 1rem 0;
   }
   
@@ -10,3 +10,10 @@
     margin-bottom: 1rem;
   }
 
+  .btn-success{
+    margin-right: 1rem;
+  }
+
+  .col-md-6{
+    margin-bottom: 1rem;
+  }
