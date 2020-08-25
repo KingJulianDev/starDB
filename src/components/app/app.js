@@ -6,7 +6,7 @@ import RandomPlanet from '../random-planet';
 import PeoplePage from '../people-page';
 import ErrorIndicator from '../error-indicator';
 import ItemList from '../item-list';
-import PersonDetails from '../person-details'
+import ItemDetails from '../item-details'
 import SwapiService from '../../services/swapi-service';
 
 
@@ -60,7 +60,32 @@ export default class App extends Component {
 
         <PeoplePage />
 
-          <div className="row mb2">
+        <div className="row mb2">
+            <div className="col-md-6">
+                <ItemList 
+                    onItemSelected={this.onItemSelected}
+                    getData={this.swapiService.getAllPlanet}
+                    renderItem={(item) => `${item.name} (${item.population})`} />
+            </div>
+
+            <div className="col-md-6">
+                
+                <ItemDetails 
+                    itemId={this.state.selectedItem}/>
+            </div>
+
+        </div>
+
+          
+
+    </div>
+    );
+  };
+}
+
+
+//-----------------------
+{/* <div className="row mb2">
               <div className="col-md-6">
                   <ItemList 
                     onItemSelected={this.onPersonSelected}
@@ -69,7 +94,7 @@ export default class App extends Component {
               </div>
 
               <div className="col-md-6">
-                  <PersonDetails personId={this.state.selectedPerson}
+                  <ItemDetails personId={this.state.selectedPerson}
                     resetPerson={this.resetSelectedPerson} />
               </div>
 
@@ -89,9 +114,4 @@ export default class App extends Component {
                     resetPerson={this.resetSelectedPerson} />
               </div>
 
-          </div>
-
-    </div>
-    );
-  };
-}
+          </div> */}
