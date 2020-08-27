@@ -1,6 +1,7 @@
 export default class SwapiService {
 
     _apiBase = 'https://swapi.dev/api';
+    _imageBase = 'https://starwars-visualguide.com/assets/img'
 
 getResource = async (url) => {
     const res = await fetch(`${this._apiBase}${url}`) ;
@@ -13,9 +14,20 @@ getResource = async (url) => {
     return await res.json() ;
     }  
     
+getPersonImage = (id) => {
+    return `${this._imageBase}/characters/${id}.jpg`
+}
+
+getPlanetImage = (id) => {
+    return `${this._imageBase}/planets/${id}.jpg`
+}
+
+
 getAllPeople = async () => {
         const res = await this.getResource(`/people/`);
-        return res.results.map(this._transformPerson) ; 
+        return res.results
+        .map(this._transformPerson)
+        .slice(0, 5) ; 
     }
 
 getPerson = async (id) => {
@@ -25,7 +37,9 @@ getPerson = async (id) => {
 
 getAllPlanet = async () => {
         const res = await this.getResource(`/planets/`);
-        return res.results.map(this._transformPlanet) ;
+        return res.results
+        .map(this._transformPlanet)
+        .slice(1, 6) ;
     }
     
 getPlanet = async (id) => {
@@ -35,7 +49,9 @@ getPlanet = async (id) => {
     
 getAllStarships = async () => {
         const res = await this.getResource(`/starships/`) ; 
-        return res.results.map(this._transformStarship) ; 
+        return res.results
+        .map(this._transformStarship)
+        .slice(0, 5) ; 
     }
 
 getStarship = async (id) => {
@@ -56,7 +72,8 @@ getStarship = async (id) => {
             name: planet.name, 
             population: planet.population, 
             rotationPeriod: planet.rotation_period,
-            diameter: planet.diameter
+            diameter: planet.diameter,
+            climate: planet.climate
         }
     }
 

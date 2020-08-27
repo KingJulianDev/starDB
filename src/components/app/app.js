@@ -5,10 +5,10 @@ import ErrorButton from '../error-button';
 import RandomPlanet from '../random-planet';
 import PeoplePage from '../people-page';
 import ErrorIndicator from '../error-indicator';
-import ItemList from '../item-list';
-import ItemDetails from '../item-details'
 import SwapiService from '../../services/swapi-service';
-
+import ErrorBoundry from '../error-boundry';
+import ItemDetails, {Record} from '../item-details';
+import Row from '../row';
 
 
 export default class App extends Component {
@@ -44,7 +44,8 @@ export default class App extends Component {
       }
 
     return (
-      <div>
+      <ErrorBoundry>
+      <div className='stardb-app'>
         <Header />
         {planet}
 
@@ -58,27 +59,33 @@ export default class App extends Component {
         <ErrorButton />
       </div>
 
-        <PeoplePage />
-
-        <div className="row mb2">
-            <div className="col-md-6">
-                <ItemList 
-                    onItemSelected={this.onItemSelected}
-                    getData={this.swapiService.getAllPlanet}
-                    renderItem={(item) => `${item.name} (${item.population})`} />
-            </div>
-
-            <div className="col-md-6">
-                
-                <ItemDetails 
-                    itemId={this.state.selectedItem}/>
-            </div>
-
-        </div>
-
-          
+      <Row 
+        leftItem={
+          <ItemDetails
+            getData={this.swapiService.getPerson}
+            getImageUrl={this.swapiService.getPersonImage}
+            itemId={35}
+          >
+            <Record field='gender' label='Gender'/>
+            <Record field='birthYear' label='Birth Year'/>
+            <Record field='eyeColor' label='Eye color'/>
+          </ItemDetails>
+        }
+        rightItem={
+          <ItemDetails
+            getData={this.swapiService.getPlanet}
+            getImageUrl={this.swapiService.getPlanetImage}
+            itemId={9}
+          >
+            <Record field='population' label='Population'/>
+            <Record field='diameter' label='Diameter'/>
+            <Record field='climate' label='Climate'/>
+          </ItemDetails>
+        }
+      />
 
     </div>
+    </ErrorBoundry>
     );
   };
 }
@@ -92,15 +99,11 @@ export default class App extends Component {
                     getData={this.swapiService.getAllPlanet} 
                     renderItem={(item) => `${item.name} (${item.diameter})`}/>
               </div>
-
               <div className="col-md-6">
                   <ItemDetails personId={this.state.selectedPerson}
                     resetPerson={this.resetSelectedPerson} />
               </div>
-
           </div>
-
-
           <div className="row mb2">
               <div className="col-md-6">
                   <ItemList 
@@ -108,10 +111,8 @@ export default class App extends Component {
                     getData={this.swapiService.getAllStarships}
                     renderItem={(item) => item.name} />
               </div>
-
               <div className="col-md-6">
                   <PersonDetails personId={this.state.selectedPerson}
                     resetPerson={this.resetSelectedPerson} />
               </div>
-
           </div> */}
